@@ -1,10 +1,13 @@
 package com.example.aptalbumservice.controller;
 
 import com.example.aptalbumservice.model.Album;
+
 import com.example.aptalbumservice.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
