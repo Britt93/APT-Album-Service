@@ -2,18 +2,20 @@ package com.example.aptalbumservice.model;
 
 import org.springframework.data.annotation.Id;
 
+
 import javax.persistence.*;
 
 
 @Entity
-@Table(name="Album")
+@Table(name="album")
 public class Album {
 
-    @Id
+
+
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int albumId;
 
     @Column(unique = true)
@@ -30,7 +32,7 @@ public class Album {
         this.title = title;
     }
 
-    @javax.persistence.Id
+
     public int getId() {
         return id;
     }
@@ -58,4 +60,7 @@ public class Album {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
+
 }
