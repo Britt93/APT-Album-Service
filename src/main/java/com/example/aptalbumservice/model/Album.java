@@ -6,12 +6,15 @@ import javax.persistence.*;
 
 
 @Entity
-//@Table(name="album")
+@Table(name="Album")
 public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int albumId;
 
     @Column(unique = true)
     private String mbid;
@@ -20,20 +23,25 @@ public class Album {
     public Album() {
     }
 
-    public Album(long id, String mbid, String title) {
+    public Album(int id, int albumId, String mbid, String title) {
         this.id = id;
+        this.albumId = albumId;
         this.mbid = mbid;
         this.title = title;
     }
 
     @javax.persistence.Id
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
+
+    public int getAlbumId() { return albumId; }
+
+    public void setAlbumId(int albumId) { this.albumId = albumId; }
 
     public String getMbid() {
         return mbid;
