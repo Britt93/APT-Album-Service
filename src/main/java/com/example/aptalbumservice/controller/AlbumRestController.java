@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class AlbumRestController {
     /*private AlbumRepository albumRepository;
     public AlbumRestController(AlbumRepository albumRepository){
@@ -21,18 +21,18 @@ public class AlbumRestController {
     @Autowired
     private AlbumRepository albumRepository;
 
-    /*@PostConstruct
+    @PostConstruct
     public void fillDB(){
         if(albumRepository.count()==0){
             //nog de juiste mbid voor vinden OF barcode gebruiken ipv imdb OF ISNI?
-            //Moeten de albums overeenkomen met de artiesten (min. 1 album dat bij een artiest hoort?)
-            albumRepository.save(new com.example.albumservice.model.Album(001, "077774626729","A Kind of Magic"));
-            albumRepository.save(new com.example.albumservice.model.Album(002, "8809269505910","TestAlbum"));
-            albumRepository.save(new com.example.albumservice.model.Album(003, "075678200823","Gutter Ballet"));
+            //Moeten de albums overeenkomen met de artiesten? (min. 1 album dat bij een artiest hoort?)
+            albumRepository.save(new Album(001, 1, "077774626729","A Kind of Magic"));
+            albumRepository.save(new Album(002, 2, "8809269505910","TestAlbum"));
+            albumRepository.save(new Album(003, 3, "075678200823","Gutter Ballet"));
         }
 
-        System.out.println("Reviews test: " + albumRepository.findAlbumByMbid("8809269505910").getTitle());
-    }*/
+        //System.out.println("Reviews test: " + albumRepository.findAlbumByMbid("8809269505910").getTitle());
+    }
 
     //GET list of all albums
     @GetMapping("/albums")
@@ -41,17 +41,17 @@ public class AlbumRestController {
     }
 
     //GET one album
-    @GetMapping("/albums/{mbid}")
-    public Album findAlbumByMbid(@PathVariable String mbid) {
-        return albumRepository.findAlbumByMbid(mbid);
+    @GetMapping("/albums/{albumId}")
+    public Album findAlbumByMbid(@PathVariable int albumId) {
+        return albumRepository.findAlbumByAlbumId(albumId);
     }
-
+/*
     //GET list albums
     @GetMapping("/albums/{title}")
     public List<Album> findAlbumByTitle(@PathVariable String title) {
         return albumRepository.findAlbumsByTitleContaining(title);
     }
-
+*/
     //Add album
     @PostMapping("/albums")
     public Album addAlbum(@RequestBody Album album){
@@ -60,10 +60,11 @@ public class AlbumRestController {
     }
 
     //Update
-    @PutMapping("/albums/{mbid}")
-    public Album updateAlbum(@RequestBody Album updatedAlbum, @PathVariable String mbid){
-        Album retrievedAlbum = albumRepository.findAlbumByMbid(updatedAlbum.getMbid());
+    @PutMapping("/albums/{albumId}")
+    public Album updateAlbum(@RequestBody Album updatedAlbum, @PathVariable int albumId){
+        Album retrievedAlbum = albumRepository.findAlbumByAlbumId(updatedAlbum.getAlbumId());
 
+        //retrievedAlbum.setAlbumId(updatedAlbum.getAlbumId());
         retrievedAlbum.setMbid(updatedAlbum.getMbid());
         retrievedAlbum.setTitle(updatedAlbum.getTitle());
 
@@ -71,9 +72,10 @@ public class AlbumRestController {
     }
 
     //Delete
-    @DeleteMapping("/albums/{mbid}")
-    public void deleteAlbum(@PathVariable String mbid){
-        Album album = albumRepository.findAlbumByMbid(mbid);
+    @DeleteMapping("/albums/{albumId}")
+    public void deleteAlbum(@PathVariable int albumId){
+        //Album album = albumRepository.findAlbumById(id);
+        Album album = albumRepository.findAlbumByAlbumId(albumId);
         albumRepository.delete(album);
     }
 

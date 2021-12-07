@@ -12,5 +12,8 @@ import java.util.List;
 public interface AlbumRepository extends JpaRepository<Album, Long> {
     Album findAlbumByMbid(String mbid);
     List<Album> findAlbumsByTitleContaining(String title);
+    Album findAlbumByAlbumId(int albumId);
+
+
 
 }
