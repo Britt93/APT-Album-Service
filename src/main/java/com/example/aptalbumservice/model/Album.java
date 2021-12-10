@@ -10,11 +10,15 @@ import javax.persistence.*;
 @Table(name="album")
 public class Album {
 
+    //Database ID
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int albumId;
+
+    //Foreign key (1 artist heeft meer albums, 1 album hoort bij 1 artist)
+    private int artistId;
 
     @Column(unique = true)
     private String mbid;
@@ -44,6 +48,10 @@ public class Album {
 
     public void setAlbumId(int albumId) { this.albumId = albumId; }
 
+    public int getArtistId() { return artistId; }
+
+    public void setArtistId(int artistId) { this.artistId = artistId; }
+
     public String getMbid() {
         return mbid;
     }
@@ -61,5 +69,7 @@ public class Album {
     }
 
 
+    public int getNumberStreams() { return numberStreams; }
 
+    public void setNumberStreams(int numberStreams) { this.numberStreams = numberStreams; }
 }
