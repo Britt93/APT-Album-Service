@@ -37,6 +37,12 @@ public class AlbumRestController {
         return albumRepository.findAll();
     }
 
+    //GET all albums by artist
+    @GetMapping("/albums/{artistId}")
+    public List<Album> getAlbumsByArtist(@PathVariable int artistId){
+        return albumRepository.findAlbumsByArtistId(artistId);
+    }
+
 
     //GET one album
     @GetMapping("/albums/{albumId}")
