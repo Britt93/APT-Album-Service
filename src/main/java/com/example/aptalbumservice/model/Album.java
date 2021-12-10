@@ -10,8 +10,6 @@ import javax.persistence.*;
 @Table(name="album")
 public class Album {
 
-
-
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,6 +19,7 @@ public class Album {
     @Column(unique = true)
     private String mbid;
     private String title;
+    private int numberStreams;
 
     public Album() {
     }
