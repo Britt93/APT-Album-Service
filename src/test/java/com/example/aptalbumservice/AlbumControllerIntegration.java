@@ -102,7 +102,7 @@ public class AlbumControllerIntegration {
 
         Album updatedAlbum = new Album(21, 21, 1, "123","album1");
 
-        mockMvc.perform(put("/reviews")
+        mockMvc.perform(put("/albums")
                 .content(mapper.writeValueAsString(updatedAlbum))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
