@@ -4,6 +4,7 @@ import com.example.aptalbumservice.model.Album;
 
 import com.example.aptalbumservice.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class AlbumRestController {
             albumRepository.save(new Album(3, 3, 1, "075678200823","Gutter Ballet"));
         }
 
-        System.out.println("Albums test: " + albumRepository.findAlbumByAlbumId(2).getTitle());
+        //System.out.println("Albums test: " + albumRepository.findAlbumByAlbumId(2).getTitle());
     }
 
     //GET list of all albums
@@ -38,14 +39,14 @@ public class AlbumRestController {
     }
 
     //GET all albums by artist
-    @GetMapping("/albums/artist/{artistId}")
+    @GetMapping(value = "/albums/artist/{artistId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/json")
     public List<Album> getAlbumsByArtist(@PathVariable int artistId){
         return albumRepository.findAlbumsByArtistId(artistId);
     }
 
 
     //GET one album
-    @GetMapping("/albums/{albumId}")
+    @GetMapping(value = "/albums/{albumId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/json")
     public Album findAlbumByAlbumId(@PathVariable int albumId) {
         return albumRepository.findAlbumByAlbumId(albumId);
     }
