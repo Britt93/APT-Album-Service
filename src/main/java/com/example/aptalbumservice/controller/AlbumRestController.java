@@ -64,7 +64,8 @@ public class AlbumRestController {
     //Add album
     @PostMapping("/albums")
     public Album addAlbum(@RequestBody Album album){
-        return albumRepository.save(album);
+        albumRepository.save(album);
+        return album;
     }
 
 
@@ -78,7 +79,8 @@ public class AlbumRestController {
         retrievedAlbum.setMbid(updatedAlbum.getMbid());
         retrievedAlbum.setTitle(updatedAlbum.getTitle());
 
-        return  albumRepository.save(retrievedAlbum);
+        albumRepository.save(retrievedAlbum);
+        return retrievedAlbum;
     }
 
 
