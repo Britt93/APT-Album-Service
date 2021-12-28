@@ -20,10 +20,9 @@ jobs:
         uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '11'
-          #postgresql user: 'postgres' #${{ secrets.POSTGRESQL_ROOT_USER }}
-          #postgresql password: 'abc123' #${{ secrets.POSTGRESQL_ROOT_PASSWORD }}
+          postgresql user: 'postgres' #${{ secrets.POSTGRESQL_ROOT_USER }}
+          postgresql password: 'abc123' #${{ secrets.POSTGRESQL_ROOT_PASSWORD }}
           postgresql db: 'albums'
-          #mysql database: 'album' # Optional, default value is "test". The specified database which will be created.
           #mysql root password: #${{ secrets.POSTGRESQL_ROOT_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
       - name: Cache SonarCloud packages #cashing -> 2e keer builden gaat sneller
         uses: actions/cache@v1
