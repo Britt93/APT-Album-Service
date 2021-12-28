@@ -4,6 +4,7 @@ import com.example.aptalbumservice.model.Album;
 
 import com.example.aptalbumservice.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,12 @@ public class AlbumRestController {
         if(albumRepository.count()==0){
             //nog de juiste mbid voor vinden OF barcode gebruiken ipv imdb OF ISNI?
             //Moeten de albums overeenkomen met de artiesten? (min. 1 album dat bij een artiest hoort?)
-            albumRepository.save(new Album(1, 1, "077774626729","A Kind of Magic"));
-            albumRepository.save(new Album(2, 2, "8809269505910","TestAlbum"));
-            albumRepository.save(new Album(3, 3, "075678200823","Gutter Ballet"));
+            albumRepository.save(new Album(1, 1, 1, "077774626729","A Kind of Magic"));
+            albumRepository.save(new Album(2, 2, 1, "8809269505910","TestAlbum"));
+            albumRepository.save(new Album(3, 3, 1, "075678200823","Gutter Ballet"));
         }
 
-        System.out.println("Albums test: " + albumRepository.findAlbumByAlbumId(2).getTitle());
+        //System.out.println("Albums test: " + albumRepository.findAlbumByAlbumId(2).getTitle());
     }
 
     //GET list of all albums
@@ -38,14 +39,14 @@ public class AlbumRestController {
     }
 
     //GET all albums by artist
-    @GetMapping("/albums/{artistId}")
+    @GetMapping(value = "/albums/artist/{artistId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/json")
     public List<Album> getAlbumsByArtist(@PathVariable int artistId){
         return albumRepository.findAlbumsByArtistId(artistId);
     }
 
 
     //GET one album
-    @GetMapping("/albums/{albumId}")
+    @GetMapping(value = "/albums/{albumId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/json")
     public Album findAlbumByAlbumId(@PathVariable int albumId) {
         return albumRepository.findAlbumByAlbumId(albumId);
     }

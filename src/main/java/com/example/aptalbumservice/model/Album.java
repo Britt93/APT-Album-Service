@@ -28,9 +28,10 @@ public class Album {
     public Album() {
     }
 
-    public Album(int id, int albumId, String mbid, String title) {
+    public Album(int id, int albumId, int artistId, String mbid, String title) {
         this.id = id;
         this.albumId = albumId;
+        this.artistId = artistId;
         this.mbid = mbid;
         this.title = title;
     }
