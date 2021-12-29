@@ -68,7 +68,7 @@ class AlbumControllerUnitTests {
     }
 
     @Test
-    public void givenAlbum_whenGetAlbums_thenReturnJsonAlbums() throws Exception {
+    void givenAlbum_whenGetAlbums_thenReturnJsonAlbums() throws Exception {
         Album album1artist1 = new Album(21, 21, 1, "123654789","album1");
         Album album2artist1 = new Album(22, 22, 1, "9876546321","album2");
 

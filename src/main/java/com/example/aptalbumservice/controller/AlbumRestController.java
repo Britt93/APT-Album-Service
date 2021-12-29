@@ -58,7 +58,7 @@ public class AlbumRestController {
     //Update
     @PutMapping("/albums/{albumId}")
     public Album updateAlbum(@RequestBody Album updatedAlbum, @PathVariable int albumId){
-        Album retrievedAlbum = albumRepository.findAlbumByAlbumId(updatedAlbum.getAlbumId());
+        Album retrievedAlbum = albumRepository.findAlbumByAlbumId(albumId);
 
         retrievedAlbum.setMbid(updatedAlbum.getMbid());
         retrievedAlbum.setTitle(updatedAlbum.getTitle());
