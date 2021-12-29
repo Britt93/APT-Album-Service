@@ -1,8 +1,5 @@
 package com.example.aptalbumservice.model;
 
-import org.springframework.data.annotation.Id;
-
-
 import javax.persistence.*;
 
 

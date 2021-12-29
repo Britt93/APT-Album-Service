@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AlbumControllerIntegration {
+class AlbumControllerIntegration {
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,7 +38,7 @@ public class AlbumControllerIntegration {
     private Album albumToBeDeleted = new Album(99, 99, 9, "999999999","album9");
 
     @BeforeEach
-    public void beforeAllTests() {
+    void beforeAllTests() {
         albumRepository.deleteAll();
         albumRepository.save(album1artist1);
         albumRepository.save(album2artist1);
@@ -47,7 +47,7 @@ public class AlbumControllerIntegration {
     }
 
     @AfterEach
-    public void afterAllTests() {
+    void afterAllTests() {
         //Watch out with deleteAll() methods when you have other data in the test database!
         albumRepository.deleteAll();
     }
@@ -55,7 +55,7 @@ public class AlbumControllerIntegration {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenAlbum_whenGetAlbumByAlbumId_thenReturnJsonAlbum() throws Exception {
+    void givenAlbum_whenGetAlbumByAlbumId_thenReturnJsonAlbum() throws Exception {
 
         mockMvc.perform(get("/api/albums/{albumId}",21))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -65,7 +65,7 @@ public class AlbumControllerIntegration {
     }
 
     @Test
-    public void givenAlbums_whenGetAlbumsByArtist_thenReturnJsonAlbums() throws Exception {
+    void givenAlbums_whenGetAlbumsByArtist_thenReturnJsonAlbums() throws Exception {
 
         List<Album> albumList = new ArrayList<>();
         albumList.add(album1artist1);
@@ -84,7 +84,7 @@ public class AlbumControllerIntegration {
     }
 
     @Test
-    public void whenPostAlbum_thenReturnJsonAlbum() throws Exception {
+    void whenPostAlbum_thenReturnJsonAlbum() throws Exception {
         Album album4artist2 = new Album(24, 24, 2, "159487263","album4");
 
         mockMvc.perform(post("/api/albums")
@@ -98,7 +98,7 @@ public class AlbumControllerIntegration {
     }
 
     @Test
-    public void givenAlbum_whenPutAlbum_thenReturnJsonAlbum() throws Exception {
+    void givenAlbum_whenPutAlbum_thenReturnJsonAlbum() throws Exception {
 
         Album updatedAlbum = new Album(21, 21, 1, "123","album1");
 
@@ -114,7 +114,7 @@ public class AlbumControllerIntegration {
     }
 
     @Test
-    public void givenAlbum_whenDeleteAlbum_thenStatusOk() throws Exception {
+    void givenAlbum_whenDeleteAlbum_thenStatusOk() throws Exception {
 
         mockMvc.perform(delete("/api/albums/{albumId}", 99)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -122,7 +122,7 @@ public class AlbumControllerIntegration {
     }
 
     @Test
-    public void givenNoAlbum_whenDeleteAlbum_thenStatusNotFound() throws Exception {
+    void givenNoAlbum_whenDeleteAlbum_thenStatusNotFound() throws Exception {
 
         mockMvc.perform(delete("/api/albums/{albumId}", 88)
                 .contentType(MediaType.APPLICATION_JSON))
