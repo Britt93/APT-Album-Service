@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AlbumControllerUnitTests {
+class AlbumControllerUnitTests {
     @Autowired
     private MockMvc mockMvc;
 
@@ -32,7 +32,7 @@ public class AlbumControllerUnitTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenAlbum_whenGetAlbumByAlbumId_thenReturnJsonAlbum() throws Exception {
+    void givenAlbum_whenGetAlbumByAlbumId_thenReturnJsonAlbum() throws Exception {
         Album album1artist1 = new Album(21, 21, 1, "123654789","album1");
 
         given(albumRepository.findAlbumByAlbumId(21)).willReturn(album1artist1);
@@ -45,7 +45,7 @@ public class AlbumControllerUnitTests {
     }
 
     @Test
-    public void givenAlbum_whenGetAlbumsByArtistId_thenReturnJsonAlbums() throws Exception {
+    void givenAlbum_whenGetAlbumsByArtistId_thenReturnJsonAlbums() throws Exception {
         Album album1artist1 = new Album(21, 21, 1, "123654789","album1");
         Album album2artist1 = new Album(22, 22, 1, "9876546321","album2");
 
@@ -67,8 +67,8 @@ public class AlbumControllerUnitTests {
                 .andExpect(jsonPath("$[1].artistId",is(1)));
     }
 
-    /*@Test
-    public void givenAlbum_whenGetAlbums_thenReturnJsonAlbums() throws Exception {
+    @Test
+    void givenAlbum_whenGetAlbums_thenReturnJsonAlbums() throws Exception {
         Album album1artist1 = new Album(21, 21, 1, "123654789","album1");
         Album album2artist1 = new Album(22, 22, 1, "9876546321","album2");
 
@@ -76,9 +76,9 @@ public class AlbumControllerUnitTests {
         albumList.add(album1artist1);
         albumList.add(album2artist1);
 
-        given(albumRepository.findAlbumsByArtistId(1)).willReturn(albumList);
+        given(albumRepository.findAll()).willReturn(albumList);
 
-        mockMvc.perform(get("/albums"))
+        mockMvc.perform(get("/api/albums"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -88,10 +88,10 @@ public class AlbumControllerUnitTests {
                 .andExpect(jsonPath("$[1].title",is("album2")))
                 .andExpect(jsonPath("$[1].albumId",is(22)))
                 .andExpect(jsonPath("$[1].artistId",is(1)));
-    }*/
+    }
 
     @Test
-    public void whenPostAlbum_thenReturnJsonAlbum() throws Exception{
+    void whenPostAlbum_thenReturnJsonAlbum() throws Exception{
         Album album4artist2 = new Album(24, 24, 2, "159487263","album4");
 
         mockMvc.perform(post("/api/albums")
@@ -105,7 +105,7 @@ public class AlbumControllerUnitTests {
     }
 
     @Test
-    public void givenAlbum_whenPutAlbum_thenReturnJsonAlbum() throws Exception{
+    void givenAlbum_whenPutAlbum_thenReturnJsonAlbum() throws Exception{
         Album album1artist1 = new Album(21, 21, 1, "123654789","album1");
 
         given(albumRepository.findAlbumByAlbumId(21)).willReturn(album1artist1);
@@ -123,7 +123,7 @@ public class AlbumControllerUnitTests {
     }
 
     @Test
-    public void givenAlbum_whenDeleteAlbum_thenStatusOk() throws Exception{
+    void givenAlbum_whenDeleteAlbum_thenStatusOk() throws Exception{
         Album albumToBeDeleted = new Album(99, 99, 9, "999999999","album9");
 
         given(albumRepository.findAlbumByAlbumId(99)).willReturn(albumToBeDeleted);
@@ -134,7 +134,7 @@ public class AlbumControllerUnitTests {
     }
 
     @Test
-    public void givenNoAlbum_whenDeleteAlbum_thenStatusNotFound() throws Exception{
+    void givenNoAlbum_whenDeleteAlbum_thenStatusNotFound() throws Exception{
         given(albumRepository.findAlbumByAlbumId(88)).willReturn(null);
 
         mockMvc.perform(delete("/api/albums/{albumId}",88)

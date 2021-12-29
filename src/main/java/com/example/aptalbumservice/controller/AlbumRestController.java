@@ -4,13 +4,10 @@ import com.example.aptalbumservice.model.Album;
 
 import com.example.aptalbumservice.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,8 +26,6 @@ public class AlbumRestController {
             albumRepository.save(new Album(2, 2, 1, "8809269505910","TestAlbum"));
             albumRepository.save(new Album(3, 3, 1, "075678200823","Gutter Ballet"));
         }
-
-        //System.out.println("Albums test: " + albumRepository.findAlbumByAlbumId(2).getTitle());
     }
 
     //GET list of all albums
@@ -45,21 +40,12 @@ public class AlbumRestController {
         return albumRepository.findAlbumsByArtistId(artistId);
     }
 
-
     //GET one album
     @GetMapping("/albums/{albumId}")
     public Album findAlbumByAlbumId(@PathVariable int albumId) {
         return albumRepository.findAlbumByAlbumId(albumId);
     }
 
-
-/*
-    //GET list albums
-    @GetMapping("/albums/{title}")
-    public List<Album> findAlbumByTitle(@PathVariable String title) {
-        return albumRepository.findAlbumsByTitleContaining(title);
-    }
-*/
 
     //Add album
     @PostMapping("/albums")
@@ -72,10 +58,8 @@ public class AlbumRestController {
     //Update
     @PutMapping("/albums/{albumId}")
     public Album updateAlbum(@RequestBody Album updatedAlbum, @PathVariable int albumId){
-        Album retrievedAlbum = albumRepository.findAlbumByAlbumId(updatedAlbum.getAlbumId());
+        Album retrievedAlbum = albumRepository.findAlbumByAlbumId(albumId);
 
-        //retrievedAlbum.setId(updatedAlbum.getId());
-        //retrievedAlbum.setAlbumId(updatedAlbum.getAlbumId());
         retrievedAlbum.setMbid(updatedAlbum.getMbid());
         retrievedAlbum.setTitle(updatedAlbum.getTitle());
 
