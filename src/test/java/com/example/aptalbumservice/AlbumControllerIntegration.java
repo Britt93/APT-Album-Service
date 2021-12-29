@@ -57,7 +57,7 @@ public class AlbumControllerIntegration {
     @Test
     public void givenAlbum_whenGetAlbumByAlbumId_thenReturnJsonAlbum() throws Exception {
 
-        mockMvc.perform(get("/albums/{albumId}",21))
+        mockMvc.perform(get("/api/albums/{albumId}",21))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title",is("album1")))
@@ -71,7 +71,7 @@ public class AlbumControllerIntegration {
         albumList.add(album1artist1);
         albumList.add(album2artist1);
 
-        mockMvc.perform(get("/albums/artist/{artistId}",1))
+        mockMvc.perform(get("/api/albums/artist/{artistId}",1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -87,14 +87,14 @@ public class AlbumControllerIntegration {
     public void whenPostAlbum_thenReturnJsonAlbum() throws Exception {
         Album album4artist2 = new Album(24, 24, 2, "159487263","album4");
 
-        mockMvc.perform(post("/albums")
+        mockMvc.perform(post("/api/albums")
                 .content(mapper.writeValueAsString(album4artist2))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title",is("album4")))
-                .andExpect(jsonPath("$[0].albumId",is(24)))
-                .andExpect(jsonPath("$[0].artistId",is(2)));
+                .andExpect(jsonPath("$.title",is("album4")))
+                .andExpect(jsonPath("$.albumId",is(24)))
+                .andExpect(jsonPath("$.artistId",is(2)));
     }
 
     @Test
@@ -102,21 +102,21 @@ public class AlbumControllerIntegration {
 
         Album updatedAlbum = new Album(21, 21, 1, "123","album1");
 
-        mockMvc.perform(put("/albums")
+        mockMvc.perform(put("/api/albums/{albumId}", updatedAlbum.getAlbumId())
                 .content(mapper.writeValueAsString(updatedAlbum))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title",is("album1")))
-                .andExpect(jsonPath("$[0].albumId",is(24)))
-                .andExpect(jsonPath("$[0].mbid",is("123")))
-                .andExpect(jsonPath("$[0].artistId",is(1)));
+                .andExpect(jsonPath("$.title",is("album1")))
+                .andExpect(jsonPath("$.albumId",is(21)))
+                .andExpect(jsonPath("$.mbid",is("123")))
+                .andExpect(jsonPath("$.artistId",is(1)));
     }
 
     @Test
     public void givenAlbum_whenDeleteAlbum_thenStatusOk() throws Exception {
 
-        mockMvc.perform(delete("/albums/{albumId}", 99)
+        mockMvc.perform(delete("/api/albums/{albumId}", 99)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -124,7 +124,7 @@ public class AlbumControllerIntegration {
     @Test
     public void givenNoAlbum_whenDeleteAlbum_thenStatusNotFound() throws Exception {
 
-        mockMvc.perform(delete("/albums/{albumId}", 88)
+        mockMvc.perform(delete("/api/albums/{albumId}", 88)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

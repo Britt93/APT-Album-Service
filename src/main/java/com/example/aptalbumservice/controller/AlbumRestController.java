@@ -5,6 +5,7 @@ import com.example.aptalbumservice.model.Album;
 import com.example.aptalbumservice.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,14 +40,14 @@ public class AlbumRestController {
     }
 
     //GET all albums by artist
-    @GetMapping(value = "/albums/artist/{artistId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/json")
+    @GetMapping("/albums/artist/{artistId}")
     public List<Album> getAlbumsByArtist(@PathVariable int artistId){
         return albumRepository.findAlbumsByArtistId(artistId);
     }
 
 
     //GET one album
-    @GetMapping(value = "/albums/{albumId}", produces = MediaType.APPLICATION_JSON_VALUE, headers = "content-type=application/json")
+    @GetMapping("/albums/{albumId}")
     public Album findAlbumByAlbumId(@PathVariable int albumId) {
         return albumRepository.findAlbumByAlbumId(albumId);
     }
@@ -63,7 +64,8 @@ public class AlbumRestController {
     //Add album
     @PostMapping("/albums")
     public Album addAlbum(@RequestBody Album album){
-        return albumRepository.save(album);
+        albumRepository.save(album);
+        return album;
     }
 
 
@@ -77,16 +79,23 @@ public class AlbumRestController {
         retrievedAlbum.setMbid(updatedAlbum.getMbid());
         retrievedAlbum.setTitle(updatedAlbum.getTitle());
 
-        return  albumRepository.save(retrievedAlbum);
+        albumRepository.save(retrievedAlbum);
+        return retrievedAlbum;
     }
 
 
     //Delete
     @DeleteMapping("/albums/{albumId}")
-    public void deleteAlbum(@PathVariable int albumId){
-        //Album album = albumRepository.findAlbumById(id);
+    public ResponseEntity deleteAlbum(@PathVariable int albumId){
         Album album = albumRepository.findAlbumByAlbumId(albumId);
-        albumRepository.delete(album);
+        //albumRepository.delete(album);
+
+        if(album!=null){
+            //albumRepository.delete(album);
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

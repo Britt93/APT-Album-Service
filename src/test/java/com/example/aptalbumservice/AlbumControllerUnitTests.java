@@ -37,7 +37,7 @@ public class AlbumControllerUnitTests {
 
         given(albumRepository.findAlbumByAlbumId(21)).willReturn(album1artist1);
 
-        mockMvc.perform(get("/albums/{albumId}",21))
+        mockMvc.perform(get("/api/albums/{albumId}",21))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title",is("album1")))
@@ -55,7 +55,7 @@ public class AlbumControllerUnitTests {
 
         given(albumRepository.findAlbumsByArtistId(1)).willReturn(albumList);
 
-        mockMvc.perform(get("/albums/artist/{artistId}",1))
+        mockMvc.perform(get("/api/albums/artist/{artistId}",1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -94,14 +94,14 @@ public class AlbumControllerUnitTests {
     public void whenPostAlbum_thenReturnJsonAlbum() throws Exception{
         Album album4artist2 = new Album(24, 24, 2, "159487263","album4");
 
-        mockMvc.perform(post("/albums")
+        mockMvc.perform(post("/api/albums")
                 .content(mapper.writeValueAsString(album4artist2))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title",is("album4")))
-                .andExpect(jsonPath("$[0].albumId",is(24)))
-                .andExpect(jsonPath("$[0].artistId",is(2)));
+                .andExpect(jsonPath("$.title",is("album4")))
+                .andExpect(jsonPath("$.albumId",is(24)))
+                .andExpect(jsonPath("$.artistId",is(2)));
     }
 
     @Test
@@ -112,14 +112,14 @@ public class AlbumControllerUnitTests {
 
         Album updatedAlbum = new Album(21, 21, 1, "123654789","album1put");
 
-        mockMvc.perform(put("/albums")
+        mockMvc.perform(put("/api/albums/{albumId}", 21)
                 .content(mapper.writeValueAsString(updatedAlbum))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title",is("album1put")))
-                .andExpect(jsonPath("$[0].albumId",is(21)))
-                .andExpect(jsonPath("$[0].artistId",is(1)));
+                .andExpect(jsonPath("$.title",is("album1put")))
+                .andExpect(jsonPath("$.albumId",is(21)))
+                .andExpect(jsonPath("$.artistId",is(1)));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class AlbumControllerUnitTests {
 
         given(albumRepository.findAlbumByAlbumId(99)).willReturn(albumToBeDeleted);
 
-        mockMvc.perform(delete("/albums/{albumId}",999)
+        mockMvc.perform(delete("/api/albums/{albumId}",99)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -137,7 +137,7 @@ public class AlbumControllerUnitTests {
     public void givenNoAlbum_whenDeleteAlbum_thenStatusNotFound() throws Exception{
         given(albumRepository.findAlbumByAlbumId(88)).willReturn(null);
 
-        mockMvc.perform(delete("/albums/{albumId}",88)
+        mockMvc.perform(delete("/api/albums/{albumId}",88)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
