@@ -76,6 +76,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/model/**</exclude>
+                        <exclude>**/SpringProjectApplication.*</exclude>
+<!--                        <exclude>**/config/**</exclude>-->
+                        <exclude>
+                            **/src/it/java/SpringProjectApplicationTests.java
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
