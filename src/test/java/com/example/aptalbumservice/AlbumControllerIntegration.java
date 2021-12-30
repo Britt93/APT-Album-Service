@@ -83,6 +83,33 @@ class AlbumControllerIntegration {
                 .andExpect(jsonPath("$[1].artistId",is(1)));
     }
 
+//    @Test
+//    void givenAlbums_whenGetAllAlbums_thenReturnJsonAlbums() throws Exception {
+//
+//        List<Album> albumList = new ArrayList<>();
+//        albumList.add(album1artist1);
+//        albumList.add(album2artist1);
+//        albumList.add(album3artist2);
+//        albumList.add(albumToBeDeleted);
+//
+//        mockMvc.perform(get("/api/albums"))
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$", hasSize(2)))
+//                .andExpect(jsonPath("$[0].title",is("album1")))
+//                .andExpect(jsonPath("$[0].albumId",is(21)))
+//                .andExpect(jsonPath("$[0].artistId",is(1)))
+//                .andExpect(jsonPath("$[1].title",is("album2")))
+//                .andExpect(jsonPath("$[1].albumId",is(22)))
+//                .andExpect(jsonPath("$[1].artistId",is(1)))
+//                .andExpect(jsonPath("$[2].title",is("album3")))
+//                .andExpect(jsonPath("$[2].albumId",is(23)))
+//                .andExpect(jsonPath("$[2].artistId",is(2)))
+//                .andExpect(jsonPath("$[3].title",is("album9")))
+//                .andExpect(jsonPath("$[3].albumId",is(99)))
+//                .andExpect(jsonPath("$[3].artistId",is(9)));
+//    }
+
     @Test
     void whenPostAlbum_thenReturnJsonAlbum() throws Exception {
         Album album4artist2 = new Album(24, 24, 2, "159487263","album4");
