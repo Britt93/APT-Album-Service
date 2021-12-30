@@ -17,6 +17,8 @@
         <java.version>11</java.version>
         <sonar.organization>britt93</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.exclusions>**/SpringProjectApplication.*, **/src/it/java/SpringProjectApplicationTests.java, **/model/**</sonar.exclusions>
+
     </properties>
     <dependencies>
         <dependency>
@@ -74,16 +76,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/model/**</exclude>
-                        <exclude>**/SpringProjectApplication.*</exclude>
-<!--                        <exclude>**/config/**</exclude>-->
-                        <exclude>
-                            **/src/it/java/SpringProjectApplicationTests.java
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
