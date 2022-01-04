@@ -62,6 +62,8 @@ public class AlbumRestController {
 
         retrievedAlbum.setMbid(updatedAlbum.getMbid());
         retrievedAlbum.setTitle(updatedAlbum.getTitle());
+        retrievedAlbum.setNumberStreams(updatedAlbum.getNumberStreams());
+
 
         albumRepository.save(retrievedAlbum);
         return retrievedAlbum;
@@ -75,7 +77,7 @@ public class AlbumRestController {
         //albumRepository.delete(album);
 
         if(album!=null){
-            //albumRepository.delete(album);
+            albumRepository.delete(album);
             return ResponseEntity.ok().build();
         }else{
             return ResponseEntity.notFound().build();
