@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -16,17 +15,6 @@ public class AlbumRestController {
 
     @Autowired
     private AlbumRepository albumRepository;
-
-    @PostConstruct
-    public void fillDB(){
-        if(albumRepository.count()==0){
-            //nog de juiste mbid voor vinden OF barcode gebruiken ipv imdb OF ISNI?
-            //Moeten de albums overeenkomen met de artiesten? (min. 1 album dat bij een artiest hoort?)
-            albumRepository.save(new Album(1, 1, 1, "077774626729","A Kind of Magic"));
-            albumRepository.save(new Album(2, 2, 1, "8809269505910","TestAlbum"));
-            albumRepository.save(new Album(3, 3, 1, "075678200823","Gutter Ballet"));
-        }
-    }
 
     //GET list of all albums
     @GetMapping("/albums")
@@ -74,7 +62,6 @@ public class AlbumRestController {
     @DeleteMapping("/albums/{albumId}")
     public ResponseEntity deleteAlbum(@PathVariable int albumId){
         Album album = albumRepository.findAlbumByAlbumId(albumId);
-        //albumRepository.delete(album);
 
         if(album!=null){
             albumRepository.delete(album);
