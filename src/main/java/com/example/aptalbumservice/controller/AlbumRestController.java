@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -63,7 +62,6 @@ public class AlbumRestController {
     @DeleteMapping("/albums/{albumId}")
     public ResponseEntity deleteAlbum(@PathVariable int albumId){
         Album album = albumRepository.findAlbumByAlbumId(albumId);
-        //albumRepository.delete(album);
 
         if(album!=null){
             albumRepository.delete(album);
